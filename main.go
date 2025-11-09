@@ -94,7 +94,7 @@ func main() {
 
 	dg, err := discordgo.New("Bot " + token)
 	if err != nil {
-		fmt.Println("Error al crear sesión de Discord:", err)
+		fmt.Println("Error al crear sesiónnn de Discord:", err)
 		return
 	}
 
