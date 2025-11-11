@@ -1,0 +1,25 @@
+name: UDP Flood Control
+
+on:
+  issue_comment: # Dispara el workflow cuando se crea un comentario en un issue
+    types: [created]
+  # Puedes usar otros triggers, como 'push' a una rama específica, pero 'issue_comment' es más fácil para pruebas manuales.
+
+jobs:
+  flood:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3 python3-pip
+          pip3 install scapy
+
+      - name: Run UDP Flood Script
+        env:
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }} # Token de Discord almacenado como secreto
+        run: |
+          python3 udpflood.py "${{ github.event.issue.body }}"  # Pasa el cuerpo del comentario como argumento
